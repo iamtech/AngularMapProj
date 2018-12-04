@@ -3,6 +3,14 @@
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 <agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [iconUrl]="iconUrlInUse" [latitude]="lat" [longitude]="lng" (markerClick)="markerClick()"></agm-marker>
+  <agm-marker [iconUrl]="iconUrlInUse" [latitude]="lat" [longitude]="lng" [title]="iconTitle" (markerClick)="markerClick()" infowindow="test"> 
+  <!-- <agm-snazzy-info-window> -->    
+  <!-- </agm-snazzy-info-window> -->
+
+  <agm-info-window>
+      <em>{{infoWindowStatus}} <br> {{infoWindowReport}} <br/> <a href="">click for details</a></em>
+    </agm-info-window>
+
+</agm-marker>
   <agm-kml-layer url='https://drive.google.com/uc?export=download&id=1HJXGfPqefzCIijInRGCCXUfUgM8Th171'></agm-kml-layer>
 </agm-map>

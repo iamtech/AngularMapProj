@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { DeviceLocationComponent } from './device-location/device-location.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DeviceLocationComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
     })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [DeviceLocationComponent]
 })
 export class AppModule { }
 

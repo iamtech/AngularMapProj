@@ -7,8 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-maps-project';
-  lat: number = 28.5734;
-  lng: number = 77.3712;
+  lat: number = 28.571347;
+  lng: number = 77.386467;
+  zoomVal: number = 15;
   iconTitle = "Active"
   infoWindowStatus = "STATUS: Working fine";
   infoWindowReport = "REPORT: Error msg";

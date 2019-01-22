@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, NgModule, ElementRef, NgZone, Input  } from '@angular/core';
 import {Observable} from 'rxjs';
+import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -20,10 +21,12 @@ export class DeviceLocationComponent implements OnInit {
   infoWindowReport = "REPORT: Error msg";
 
   locationDataRequestUrl ='http://localhost:8055/getdata';
+  newLocationRequestUrl = 'http://localhost:8055/getnextdata';
   newData: Point[];
   polyline: Point[];
 
   lastMarker: Point;
+  newmarker: Point;
   
   iconUrlRed = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/Map-Marker-Marker-Outside-Pink-icon.png';
   iconUrlGreen = 'https://i.ibb.co/HTZCWJ7/Gear-1s-36px.gif';
@@ -48,6 +51,22 @@ export class DeviceLocationComponent implements OnInit {
           }  
            //this.myLineChart.update();
         });
+    
+    interval(5000).subscribe((counter) => {
+      let obsd = this.http.get(this.newLocationRequestUrl).subscribe(posts => {
+        this.newmarker = posts as Point;
+        this.polyline.push(this.newmarker);
+      //  if(this.polyline.length > 12){
+     //     this.polyline.shift();
+     //   }
+        if(this.polyline != undefined){
+          this.lastMarker = this.polyline[this.polyline.length-1];
+          console.log('polyline: '+this.polyline);
+        }  
+          console.log('updated data: '+this.newmarker);
+      });
+      console.log(counter + ': read restItems');
+    });
     
   }
 

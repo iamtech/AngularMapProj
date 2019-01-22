@@ -26,12 +26,17 @@ export class DeviceLocationComponent implements OnInit {
     {latVal :28.571439, longVal :77.384117},
     {latVal :28.571192, longVal :77.379109}
   ];
+
+  lastMarker: Point = this.polyline[this.polyline.length-1]
   
   iconUrlRed = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/Map-Marker-Marker-Outside-Pink-icon.png';
   iconUrlGreen = 'https://i.ibb.co/HTZCWJ7/Gear-1s-36px.gif';
   iconUrlInUse = this.iconUrlGreen;
+  iconDevice = 'https://i.ibb.co/qWp6Y8R/Car-1.png';
 
-  constructor() { }
+  constructor() { 
+    console.log(this.polyline);
+  }
 
   ngOnInit() {
       

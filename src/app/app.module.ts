@@ -8,6 +8,8 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { DeviceLocationComponent } from './device-location/device-location.component';
 
+import { HttpClientModule } from '@angular/common/http'; 
+
 
 
 @NgModule({
@@ -19,7 +21,7 @@ import { DeviceLocationComponent } from './device-location/device-location.compo
     BrowserModule,
     CommonModule,
     FormsModule,
-    
+    HttpClientModule,
     AgmSnazzyInfoWindowModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC2O-x4JOpWdx8dX25mkHX4NaH0088eAmw'

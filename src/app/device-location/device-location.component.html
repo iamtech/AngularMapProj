@@ -4,11 +4,11 @@
 <!-- the component as the initial center of the map: -->
 <agm-map [zoom]="zoomVal" [latitude]="lat" [longitude]="lng">
   
-  <agm-polyline>
-    <agm-polyline-point *ngFor="let point of polyline; let i = index" [latitude]="point.latVal" [longitude]="point.longVal">
+  <agm-polyline [strokeColor]="'#F6C377'">
+    <agm-polyline-point *ngFor="let point of polyline; let i = index" [latitude]="point?.latitude" [longitude]="point?.longitude">
     </agm-polyline-point>
   </agm-polyline>
  
-  <agm-marker [latitude]="lastMarker.latVal" [longitude]="lastMarker.longVal" [title]="iconTitle" [iconUrl]="iconDevice">
+  <agm-marker [latitude]="lastMarker?.latitude" [longitude]="lastMarker?.longitude" [title]="iconTitle" [iconUrl]="iconDevice">
   </agm-marker>
 </agm-map>

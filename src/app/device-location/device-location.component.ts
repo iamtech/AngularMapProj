@@ -1,4 +1,8 @@
-import { Component, OnInit, NgModule, ElementRef, NgZone,Input  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, NgModule, ElementRef, NgZone, Input  } from '@angular/core';
+import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-device-location',
@@ -14,33 +18,39 @@ export class DeviceLocationComponent implements OnInit {
   iconTitle = "Current Location"
   infoWindowStatus = "STATUS: Working fine";
   infoWindowReport = "REPORT: Error msg";
-  
-  polyline: Point[] = [
-    {latVal :28.575003, longVal :77.393721},
-    {latVal :28.573637, longVal :77.393834},
-    {latVal :28.572183, longVal :77.393964},
-    {latVal :28.572070, longVal :77.393835},
-    {latVal :28.571938, longVal :77.393503},
-    {latVal :28.571816, longVal :77.390993},
-    {latVal :28.571599, longVal :77.386927},
-    {latVal :28.571439, longVal :77.384117},
-    {latVal :28.571192, longVal :77.379109}
-  ];
 
-  lastMarker: Point = this.polyline[this.polyline.length-1]
+  locationDataRequestUrl ='http://localhost:8055/getdata';
+  newData: Point[];
+  polyline: Point[];
+
+  lastMarker: Point;
   
   iconUrlRed = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/Map-Marker-Marker-Outside-Pink-icon.png';
   iconUrlGreen = 'https://i.ibb.co/HTZCWJ7/Gear-1s-36px.gif';
   iconUrlInUse = this.iconUrlGreen;
   iconDevice = 'https://i.ibb.co/qWp6Y8R/Car-1.png';
 
-  constructor() { 
-    console.log(this.polyline);
+  constructor(private http: HttpClient) { 
+    console.log('polyline from constructor: '+this.polyline);
   }
 
   ngOnInit() {
-      
+    let obs = this.http.get(this.locationDataRequestUrl);
+    obs.pipe(map(data => data))
+        .subscribe((data) => {
+          this.newData=data as Point[];
+          this.polyline = this.newData;
+          
+           console.log(data);
+           if(this.polyline != undefined){
+            this.lastMarker = this.polyline[this.polyline.length-1];
+            console.log('polyline: '+this.polyline);
+          }  
+           //this.myLineChart.update();
+        });
+    
   }
+
 
 
   markerClick(){
@@ -54,6 +64,6 @@ export class DeviceLocationComponent implements OnInit {
 }
 
 interface Point {
-     latVal: number;
-     longVal: number;
+    latitude: number;
+    longitude: number;
 }
